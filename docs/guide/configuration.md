@@ -2,11 +2,13 @@
 
 ::: tip
 脚手架命令使用npm来安装模板，因此你需要将模板发布到npm上，修改配置后进行安装。
+
+本地配置和MongoDB只需选择一项就行，优先读取本地配置。
 :::
 
 作为一款通用脚手架，你可以按团队要求定制自己的模板来快速复用。
 
-模板如何创建？请查看 [模板](./template.md) 说明。
+模板如何创建？请查看 [模板创建](./template.md) 说明。
 
 ## 本地JSON配置
 
@@ -155,11 +157,50 @@
 
 ## MongoDB配置
 
-### 项目/组件库模板配置
+> 没有必要需求使用本地JSON配置即可，毕竟配置服务端比较麻烦，也不是每个前端都想学习服务端，随意吧。
 
-### 页面模板配置
+### 前置工作
 
-### 代码片段模板配置
+1.你需要先安装MongoDB和UI界面管理工具（Windows推荐MongoDBCompass，MacOS随意）。
+
+- [MongoDB 下载](https://www.mongodb.com/try/download/community)
+- [MongoDBCompass 下载](https://www.mongodb.com/try/download/compass)
+- [MongoDB 参考教程](https://www.runoob.com/mongodb/mongodb-tutorial.html)
+- [MongoDBCompass 参考教程](https://developer.aliyun.com/article/1618937)
+
+2.打开MongoDBCompass，连接默认（localhost:27017）后创建数据库和数据表，如下图所示：
+
+如果你不知道怎么操作，请点击上面的MongoDBCompass 参考教程链接。
+
+![MongoDB数据库截图](../../docs/.vuepress/public/images/mongodb-db.jpg)
+
+操作完成后我们拥有了以下内容，接着只需要插入相应的配置到数据表中即可
+
+- `cjp-cli-dev数据库`
+- `project数据表`：参考前面文章内容 `本地JSON配置 > 项目/组件库模板配置`
+- `page数据表`：参考前面文章内容 `本地JSON配置 > 页面模板配置`
+- `section数据表`：参考前面文章内容 `本地JSON配置 > 代码片段模板配置`
+
+3.启动服务端，通过服务端提供接口连接 `MongoDB > cjp-cli-dev数据库` 来获取数据（穷鬼买不起服务器和域名，需要拉服务端代码来启动）
+
+- 配置host域名映射，好处是未来更换任何服务器都可以通过域名映射过去而不用修改源码，推荐安装 [SwitchHost](https://github.com/oldj/SwitchHosts/releases) 管理host配置：
+
+```yaml
+127.0.0.1 cjp.clidev.xyz
+```
+
+- 克隆服务端仓库代码（使用eggjs搭建）
+
+```bash
+# 克隆仓库
+git clone https://gitee.com/Mr_Mikey/cjp-cli-server.git
+# 进入项目目录
+cd cjp-cli-server
+# 安装依赖
+npm install
+# 启动项目
+npm run dev
+```
 
 ## 配置模板字段说明
 

@@ -1,5 +1,7 @@
 # 模板
 
+[演示模板仓库地址](https://gitee.com/Mr_Mikey/cjp-cli-dev-template)
+
 ## 如何创建项目模板
 
 ### 创建标准项目模板
