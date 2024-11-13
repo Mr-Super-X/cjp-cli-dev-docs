@@ -3,107 +3,48 @@
 
 ## 依赖环境
 
-- [Node.js v16+](https://nodejs.org/)
+- [Node.js v16+](https://nodejs.org/zh-cn)
+- [Node.js 历史版本](https://nodejs.org/dist/)
 
-## 手动安装
+## 安装
 
-这一章节会帮助你从头搭建一个简单的 VuePress 文档网站。如果你想在一个现有项目中使用 VuePress 管理文档，从步骤 3 开始。
-
-- **步骤1**: 创建并进入一个新目录
-
-```bash
-mkdir vuepress-starter
-cd vuepress-starter
-```
-
-- **步骤2**: 初始化项目
-
-<CodeGroup>
-  <CodeGroupItem title="YARN" active>
+- 全局安装脚手架核心包
 
 ```bash
-git init
-yarn init
+npm i -g @cjp-cli-dev/core
 ```
 
-  </CodeGroupItem>
+## 使用
 
-  <CodeGroupItem title="NPM">
+Windows系统推荐使用 [cmder](https://cmder.app/) 来运行脚手架，可以减少很多奇怪的报错现象。MacOS请随意。
+
+[一份cmder配置参考教程](https://blog.csdn.net/weixin_44205779/article/details/114657837)
+
+### 注意事项
+
+**核心命令目前需要做一些配置才可以使用，请查阅 [核心命令](./core-command.md) 文档，下面演示一些简单命令**
+
+- **以codelint命令作为示例**:
+
+安装统一代码规范，假设你当前项目为vue-project
 
 ```bash
-git init
-npm init
+cd vue-project
+cjp-cli-dev codelint --install
 ```
 
-  </CodeGroupItem>
-</CodeGroup>
+接着只需要按照提示进行选择或输入即可将统一代码规范功能安装到项目中。
 
-- **步骤3**: 将 VuePress 安装为本地依赖
-
-<CodeGroup>
-  <CodeGroupItem title="YARN" active>
+命令参数支持简化，如：
 
 ```bash
-yarn add -D vuepress@next
+cjp-cli-dev codelint -i
 ```
 
-  </CodeGroupItem>
-
-  <CodeGroupItem title="NPM">
+你可以通过以下方式查看命令使用帮助
 
 ```bash
-npm install -D vuepress@next
+cjp-cli-dev codelint --help
+# or
+cjp-cli-dev codelint -h
 ```
-
-  </CodeGroupItem>
-</CodeGroup>
-
-- **步骤4**: 在 `package.json` 中添加一些 [scripts](https://classic.yarnpkg.com/zh-Hans/docs/package-json#toc-scripts)
-
-```json
-{
-  "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
-  }
-}
-```
-
-- **步骤5**: 将默认的临时目录和缓存目录添加到 `.gitignore` 文件中
-
-```bash
-echo 'node_modules' >> .gitignore
-echo '.temp' >> .gitignore
-echo '.cache' >> .gitignore
-```
-
-- **步骤6**: 创建你的第一篇文档
-
-```bash
-mkdir docs
-echo '# Hello VuePress' > docs/README.md
-```
-
-- **步骤7**: 在本地启动服务器来开发你的文档网站
-
-<CodeGroup>
-  <CodeGroupItem title="YARN" active>
-
-```bash
-yarn docs:dev
-```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="NPM">
-
-```bash
-npm run docs:dev
-```
-
-  </CodeGroupItem>
-</CodeGroup>
-
-  VuePress 会在 [http://localhost:8080](http://localhost:8080) 启动一个热重载的开发服务器。当你修改你的 Markdown 文件时，浏览器中的内容也会自动更新。
-
-现在，你应该已经有了一个简单可用的 VuePress 文档网站。接下来，了解一下 VuePress [配置](./configuration.md) 相关的内容。

@@ -6,6 +6,8 @@ export const sidebarConfig = {
       children: [
         "", // 空字符默认会寻找当前目录/guide下的README.md文件
         "/guide/getting-started.md",
+        "/guide/core-command.md",
+        "/guide/more-command.md",
       ],
     },
   ],
