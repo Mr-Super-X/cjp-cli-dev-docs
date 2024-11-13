@@ -8,6 +8,8 @@ export const sidebarConfig = {
         "/guide/getting-started.md",
         "/guide/core-command.md",
         "/guide/more-command.md",
+        "/guide/template.md",
+        "/guide/configuration.md",
       ],
     },
   ],

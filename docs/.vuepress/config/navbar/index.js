@@ -5,7 +5,7 @@ export const navbarConfig = [
   },
   {
     text: "指南",
-    link: "/guide/introduction", // link对应的值为文件路径，不用包含文件后缀
+    link: "/guide/", // link对应的值为文件路径，不用包含文件后缀
   },
   {
     text: "我的主页",

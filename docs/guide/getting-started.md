@@ -18,15 +18,31 @@ npm i -g @cjp-cli-dev/core
 
 Windows系统推荐使用 [cmder](https://cmder.app/) 来运行脚手架，可以减少很多奇怪的报错现象。MacOS请随意。
 
-[一份cmder配置参考教程](https://blog.csdn.net/weixin_44205779/article/details/114657837)
+这里有一份[cmder配置参考教程](https://blog.csdn.net/weixin_44205779/article/details/114657837)
+
+- **命令使用范式**：所有命令都通过 `脚手架 + 命令 + 参数` 调用，`<>` 表示必传，`[]` 表示可选，查看 [commander](https://github.com/tj/commander.js/blob/HEAD/Readme_zh-CN.md) 文档
+
+```bash
+cjp-cli-dev <command> [options]
+```
+
+你可以通过以下方式查看命令使用帮助
+
+```bash
+cjp-cli-dev <command> --help
+# or
+cjp-cli-dev <command> -h
+# 示例
+cjp-cli-dev codelint --help
+```
 
 ### 注意事项
 
-**核心命令目前需要做一些配置才可以使用，请查阅 [核心命令](./core-command.md) 文档，下面演示一些简单命令**
+**核心命令目前需要做一些配置才可以使用，请查阅 [核心命令](./core-command.md) 说明文档，下面演示一些简单命令用法**
 
-- **以codelint命令作为示例**:
+- **安装统一代码规范：codelint**
 
-安装统一代码规范，假设你当前项目为vue-project
+假设你当前项目为vue-project
 
 ```bash
 cd vue-project
@@ -41,10 +57,12 @@ cjp-cli-dev codelint --install
 cjp-cli-dev codelint -i
 ```
 
-你可以通过以下方式查看命令使用帮助
+- **debug调试**:
+
+脚手架所有命令都支持debug调试，只需要在命令后指定 `--debug` 参数即可，debug模式拥有更加详细的调试输出内容以及报错时的执行栈打印
 
 ```bash
-cjp-cli-dev codelint --help
-# or
-cjp-cli-dev codelint -h
+cjp-cli-dev <command> --debug
 ```
+
+- **[更多命令](./more-command.md)使用教程**
