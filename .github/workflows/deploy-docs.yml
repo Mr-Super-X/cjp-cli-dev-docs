@@ -2,49 +2,58 @@
 name: 部署文档
 
 on:
+  # 每当 push 到 master 分支时触发部署
   push:
     branches:
       # 确保这是你正在使用的分支名称
       - master
 
+# 拥有的权限
 permissions:
   contents: write
 
+# 部署任务
 jobs:
   deploy-gh-pages:
     runs-on: ubuntu-latest
     steps:
+      # 检出分支
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
+          # “最近更新时间” 等 git 日志相关信息，需要拉取全部提交记录
           fetch-depth: 0
           # 如果你文档需要 Git 子模块，取消注释下一行
           # submodules: true
 
-
-
       - name: 设置 Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
+          # 选择要使用的 node 版本
           node-version: 20
+          # 缓存 npm 依赖
           cache: npm
 
+      # 安装依赖
       - name: 安装依赖
-        run: npm ci
+        run: npm install
 
-      - name: 构建文档
+      # 运行构建脚本
+      - name: 运行构建脚本
         env:
           NODE_OPTIONS: --max_old_space_size=8192
-        run: |-
-          npm run docs:build
-          > docs/.vuepress/dist/.nojekyll
+        run: npm run docs:build
 
-      - name: 部署文档
-        uses: JamesIves/github-pages-deploy-action@v4
+      # 查看 workflow 的文档来获取更多信息
+      # @see https://github.com/crazy-max/ghaction-github-pages
+      - name: 部署到Github Pages
+        uses: crazy-max/ghaction-github-pages@v4
         with:
           # 这是文档部署到的分支名称
-          branch: gh-pages
-          folder: docs/.vuepress/dist
+          target_branch: gh-pages
+          # 部署目录为 VuePress 的默认输出目录
+          build_dir: docs/.vuepress/dist
         env:
           # 这是 GitHub 令牌，请将您的令牌保存在 secrets.GITHUB_TOKEN 中
+          # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
