@@ -1,9 +1,11 @@
 <!-- 当navbar配置路径为该文件夹如/guide/时，默认找这个README.md文件，找不到则404 -->
 # 介绍
 
-苦于一直当业务牛马，在前端已死的2024年，趁还能学想写点自己的东西。早期写过一点比较简单且功能单一的cli工具，如 [@mr.mikey/create-husky](https://www.npmjs.com/package/@mr.mikey/create-husky) ，某天机缘巧合之下在 Github 上刷到Sam老师的  [imooc-cli](https://github.com/sam9831/imooc-cli) 脚手架，觉得非常符合我当下需要，于是找了一些零零散散的教程和视频尝试复刻一个属于自己的前端脚手架，在这个背景下 cjp-cli-dev 诞生了。
+苦于一直当业务牛马，在前端已死的2024年，趁还能学想写点自己的东西。早期写过一点比较简单且功能单一的cli工具，如 [@mr.mikey/create-husky](https://www.npmjs.com/package/@mr.mikey/create-husky) ，某天机缘巧合之下在 Github 上刷到Sam老师的  [imooc-cli](https://github.com/sam9831/imooc-cli) 脚手架，觉得非常符合我当下需要，于是找了一些零零散散的教程和视频尝试复刻一个属于自己的前端脚手架，在这个背景下 `cjp-cli-dev` 诞生了。
 
 以下内容由AI生成，人工校正，随便看看就好。
+
+直接查看 [快速上手](./getting-started.md) 。
 
 ## 脚手架介绍
 
