@@ -16,17 +16,23 @@ npm i -g @cjp-cli-dev/core
 
 ## 使用
 
+### 操作系统说明
+
 Windows系统推荐使用 [cmder](https://cmder.app/) 来运行脚手架，可以减少很多奇怪的报错现象。MacOS请随意。
 
 这里有一份[cmder配置参考教程](https://blog.csdn.net/weixin_44205779/article/details/114657837)
 
-- **命令使用范式**：所有命令都通过 `脚手架 + 命令 + 参数` 调用，`<>` 表示必传，`[]` 表示可选，查看 [commander](https://github.com/tj/commander.js/blob/HEAD/Readme_zh-CN.md) 文档
+### 命令使用范式
+
+所有命令都通过 `脚手架 + 命令 + 参数` 调用，`<>` 表示必传，`[]` 表示可选，查看 [commander](https://github.com/tj/commander.js/blob/HEAD/Readme_zh-CN.md) 文档。
 
 ```bash
 cjp-cli-dev <command> [options]
 ```
 
-你可以通过以下方式查看命令使用帮助
+### 命令使用帮助
+
+你可以通过以下方式查看命令使用帮助，脚手架所有命令查看使用帮助的方式都是一致的。
 
 ```bash
 cjp-cli-dev <command> --help
@@ -36,9 +42,16 @@ cjp-cli-dev <command> -h
 cjp-cli-dev codelint --help
 ```
 
-### 注意事项
+### 命令使用示例
 
-**核心命令目前需要做一些配置才可以使用，请查阅 [核心命令](./core-command.md) 说明文档，下面演示一些简单命令用法**
+::: tip
+脚手架在架构上对命令类型进行了区分，可分为：
+
+- **[核心命令](./core-command.md)**：包含项目初始化、发布、回滚等核心功能。
+- **[其他命令](./more-command.md)**：包含各种锦上添花的前端工程化配置或其他工具。
+
+核心命令目前需要做一些配置才可以使用，请查阅 [核心命令](./core-command.md) 说明文档，下面仅演示不依赖配置的命令如何使用。
+:::
 
 - **安装统一代码规范：codelint**
 
@@ -65,4 +78,7 @@ cjp-cli-dev codelint -i
 cjp-cli-dev <command> --debug
 ```
 
-- **[更多命令](./more-command.md)使用教程**
+### 更多命令使用
+
+- 查看 **[核心命令](./core-command.md)** 使用
+- 查看 **[其他命令](./more-command.md)** 使用

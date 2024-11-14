@@ -14,7 +14,7 @@
 
 自建私有npm源推荐使用 [verdaccio](https://www.npmjs.com/package/verdaccio)，你可以搜索相关教程。
 
-## 模板本地JSON配置
+## 本地JSON配置模板
 
 以Windows示例，本地JSON配置目录在 `C:/用户主目录/.cjp-cli-dev/data` 中，如：
 
@@ -39,7 +39,6 @@
       "**/public/**"
     ],
     "installCommand": "npm install",
-    "startCommand": "npm run dev"
   },
   {
     "name": "vue3-webpack自定义模板",
@@ -170,7 +169,7 @@ cjp-cli-dev init my-project
 cjp-cli-dev add MyComponent
 ```
 
-## 模板MongoDB配置
+## MongoDB配置模板
 
 > 没有必要需求使用本地JSON配置即可，毕竟配置服务端比较麻烦，也不是每个前端都想学习服务端，随意吧。
 
@@ -192,9 +191,9 @@ cjp-cli-dev add MyComponent
 操作完成后我们拥有了以下内容，接着只需要插入相应的配置到数据表中即可，你可以按照下面的指引复制JSON插入数据。
 
 - `cjp-cli-dev数据库`
-- `project数据表`：参考前面文章内容 `本地JSON配置 > 项目/组件库模板配置`
-- `page数据表`：参考前面文章内容 `本地JSON配置 > 页面模板配置`
-- `section数据表`：参考前面文章内容 `本地JSON配置 > 代码片段模板配置`
+- `project数据表`：参考前面文章内容 `本地JSON配置`  > [项目/组件库模板配置](#项目-组件库模板配置)
+- `page数据表`：参考前面文章内容 `本地JSON配置`  > [页面模板配置](#页面模板配置)
+- `section数据表`：参考前面文章内容 `本地JSON配置`  > [代码片段模板配置](#代码片段模板配置)
 
 ### 启动服务端
 
