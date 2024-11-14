@@ -1,16 +1,20 @@
 # 配置
 
 ::: tip
-脚手架命令使用npm来安装模板，因此你需要将模板发布到npm上，修改配置后进行安装。
+脚手架将使用 `npm` 来安装模板，因此你需要将模板发布到 `npm` 或 `自建私有npm源` 上，修改配置后进行安装，支持指定安装源。
 
-本地配置和MongoDB只需选择一项就行，优先读取本地配置。
+`本地 JSON 配置` 和 `MongoDB 配置` 只需选择一项就行，优先读取本地配置。
+
+目前脚手架 `init` 、 `add` 命令支持 `本地 JSON 配置`。
 :::
 
 作为一款通用脚手架，你可以按团队要求定制自己的模板来快速复用。
 
 模板如何创建？请查看 [模板创建](./template.md) 说明。
 
-## 本地JSON配置
+自建私有npm源推荐使用 [verdaccio](https://www.npmjs.com/package/verdaccio)，你可以搜索相关教程。
+
+## 模板本地JSON配置
 
 以Windows示例，本地JSON配置目录在 `C:/用户主目录/.cjp-cli-dev/data` 中，如：
 
@@ -155,41 +159,55 @@
 ]
 ```
 
-## MongoDB配置
+### 运行依赖本地配置的脚手架命令
+
+本地JSON配置完成后，你可以运行脚手架init命令、add命令了。
+
+```bash
+# 初始化项目
+cjp-cli-dev init my-project
+# 安装组件代码片段模板，如安装MyComponent组件
+cjp-cli-dev add MyComponent
+```
+
+## 模板MongoDB配置
 
 > 没有必要需求使用本地JSON配置即可，毕竟配置服务端比较麻烦，也不是每个前端都想学习服务端，随意吧。
 
 ### 前置工作
 
-1.你需要先安装MongoDB和UI界面管理工具（Windows推荐MongoDBCompass，MacOS随意）。
+你需要先安装MongoDB和UI界面管理工具（Windows推荐MongoDBCompass，MacOS随意）。
 
 - [MongoDB 下载](https://www.mongodb.com/try/download/community)
 - [MongoDBCompass 下载](https://www.mongodb.com/try/download/compass)
 - [MongoDB 参考教程](https://www.runoob.com/mongodb/mongodb-tutorial.html)
 - [MongoDBCompass 参考教程](https://developer.aliyun.com/article/1618937)
 
-2.打开MongoDBCompass，连接默认（localhost:27017）后创建数据库和数据表，如下图所示：
+### 连接MongoDB数据库
 
-如果你不知道怎么操作，请点击上面的MongoDBCompass 参考教程链接。
+打开MongoDBCompass进行连接，默认 `localhost:27017` ，点击保存并连接后创建数据库和数据表（如果你不知道怎么操作，请点击上面的MongoDBCompass 参考教程链接），如下图所示：
 
 ![MongoDB数据库截图](../../docs/.vuepress/public/images/mongodb-db.jpg)
 
-操作完成后我们拥有了以下内容，接着只需要插入相应的配置到数据表中即可
+操作完成后我们拥有了以下内容，接着只需要插入相应的配置到数据表中即可，你可以按照下面的指引复制JSON插入数据。
 
 - `cjp-cli-dev数据库`
 - `project数据表`：参考前面文章内容 `本地JSON配置 > 项目/组件库模板配置`
 - `page数据表`：参考前面文章内容 `本地JSON配置 > 页面模板配置`
 - `section数据表`：参考前面文章内容 `本地JSON配置 > 代码片段模板配置`
 
-3.启动服务端，通过服务端提供接口连接 `MongoDB > cjp-cli-dev数据库` 来获取数据（穷鬼买不起服务器和域名，需要拉服务端代码来启动）
+### 启动服务端
 
-- 配置host域名映射，好处是未来更换任何服务器都可以通过域名映射过去而不用修改源码，推荐安装 [SwitchHost](https://github.com/oldj/SwitchHosts/releases) 管理host配置：
+这里也是为了学习服务端知识，服务端采用和前端比较贴合的 `eggjs` 搭建。通过服务端提供的接口连接 `MongoDB > cjp-cli-dev数据库` 来获取数据（别问，问就是穷鬼买不起服务器和域名，需要拉服务端代码来启动）。
+
+- 配置 `host` 域名映射，好处是未来更换任何服务器都可以通过域名映射过去而不用修改源码，推荐安装 [SwitchHost](https://github.com/oldj/SwitchHosts/releases) 管理 `host` 配置：
 
 ```yaml
+# 本地MongoDB和Redis都支持通过127.0.0.1连接
 127.0.0.1 cjp.clidev.xyz
 ```
 
-- 克隆服务端仓库代码（使用eggjs搭建）
+- 克隆服务端仓库代码
 
 ```bash
 # 克隆仓库
@@ -202,7 +220,22 @@ npm install
 npm run dev
 ```
 
-## 配置模板字段说明
+### 运行依赖服务端的脚手架命令
+
+启动服务端成功后，你可以运行脚手架init命令、add命令了。
+
+```bash
+# 初始化项目
+cjp-cli-dev init my-project
+# 安装页面模板，如安装home页面
+cjp-cli-dev add home
+```
+
+::: tip
+`publish` 命令也依赖服务端，但由于 `publish` 命令具有阿里OSS上传能力、MySQL增删改查数据能力，会单独放在 [核心命令 - publish]() 中具体说明。
+:::
+
+## 模板配置字段说明
 
 ### 项目/组件库模板字段说明
 
@@ -268,3 +301,16 @@ npm run dev
 | npmName     | 要安装的npm包名                         | String   | 是       | 无     |
 | version     | 要安装的npm包版本（填写版本号或latest） | String   | 是       | 无     |
 | targetPath  | 代码片段模板的路径                      | String   | 是       | 无     |
+
+## 全局环境变量配置
+
+脚手架支持全局环境变量配置，默认情况下你不需要管，如果有需求，你可以在磁盘用户主目录下配置以下属性，后续有新增的配置也是在这里看。
+
+| 名称                             | 说明                                       |
+| -------------------------------- | ------------------------------------------ |
+| process.env.CLI_HOME             | 用户主目录（读取用户主目录下的.env文件）   |
+| process.env.CJP_CLI_DEV_BASE_URL | 接口请求前缀（读取用户主目录下的.env文件） |
+
+Windows系统截图：
+
+![全局环境变量配置截图](../../docs/.vuepress/public/images/global-env.png)
