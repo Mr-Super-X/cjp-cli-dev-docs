@@ -8,6 +8,10 @@ export const navbarConfig = [
     link: "/guide/", // link对应的值为文件路径，不用包含文件后缀
   },
   {
+    text: "架构",
+    link: "/framework/", // link对应的值为文件路径，不用包含文件后缀
+  },
+  {
     text: "我的主页",
     link: "https://github.com/Mr-Super-X",
   },
