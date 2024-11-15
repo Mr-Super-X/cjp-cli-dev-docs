@@ -413,7 +413,7 @@ services:
    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-time_zone='+8:00' --lower_case_table_names=1
    restart: always
    environment:
-     MYSQL_ROOT_PASSWORD: "P@ssword!123#" #设置root帐号密码
+     MYSQL_ROOT_PASSWORD: "Abc@123#pwd!" #设置root帐号密码
      TZ: "Asia/Shanghai"
    ports:
      - 3306:3306
