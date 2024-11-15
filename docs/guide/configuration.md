@@ -403,6 +403,8 @@ docker官方镜像源非常不稳定，安装完成后你需要启动docker应�
 
 这里有一份 `docker-compose` 配置，代码如下，你需要在 `mysql` 目录中创建 `docker-compose.yml` 文件。
 
+> PS：感谢我强哥教我怎么使用docker安装和连接 `MySQL` 。斯密码喽☺
+
 ```yaml
 services:
  mysql:
