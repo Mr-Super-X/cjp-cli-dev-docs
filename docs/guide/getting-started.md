@@ -54,6 +54,17 @@ cjp-cli-dev codelint --help
 cjp-cli-dev <command> --debug
 ```
 
+### 脚手架缓存清除
+
+脚手架所有缓存都放在 `你的用户主目录/.cjp-cli-dev` 目录中，并支持 `clean` 命令清空缓存。
+
+```bash
+# 清空依赖缓存
+cjp-cli-dev clean --dep
+# 清空所有缓存
+cjp-cli-dev clean --all
+```
+
 ### 命令使用示例
 
 ::: tip
