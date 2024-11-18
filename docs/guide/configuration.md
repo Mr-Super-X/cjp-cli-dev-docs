@@ -188,6 +188,12 @@ cjp-cli-dev add MyComponent
 - [MongoDB 参考教程](https://www.runoob.com/mongodb/mongodb-tutorial.html)
 - [MongoDBCompass 参考教程](https://developer.aliyun.com/article/1618937)
 
+安装完成后需要启动 `MongoDB` 才能进行连接，以Windows为例，MacOS可搜索相关教程。
+
+```bash
+net start MongoDB
+```
+
 ### 连接MongoDB数据库
 
 打开MongoDBCompass进行连接，默认 `localhost:27017` ，点击保存并连接后创建数据库和数据表（如果你不知道怎么操作，请点击上面的MongoDBCompass 参考教程链接），如下图所示：
