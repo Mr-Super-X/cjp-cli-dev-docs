@@ -12,6 +12,10 @@ export const navbarConfig = [
     link: "/framework/", // link对应的值为文件路径，不用包含文件后缀
   },
   {
+    text: "施舍一下",
+    link: "/sponsor/", // link对应的值为文件路径，不用包含文件后缀
+  },
+  {
     text: "我的主页",
     link: "https://github.com/Mr-Super-X",
   },
