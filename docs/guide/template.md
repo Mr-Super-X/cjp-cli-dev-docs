@@ -3,10 +3,6 @@
 模板也是脚手架的核心环节，你可以按照自己的需求开发模板来实现快速复用。
 
 ::: tip
-试用脚手架安装模板 [安装项目模板](./core-command.md#初始化-init命令)
-:::
-
-::: tip
 演示模板参考代码 [演示模板仓库地址](https://gitee.com/Mr_Mikey/cjp-cli-dev-template)
 :::
 
@@ -18,6 +14,10 @@
 ## 如何创建项目模板
 
 项目模板分为 `标准模板` 和 `自定义模板` ，在 [概念解释](#概念解释) 中强调了定义，注意，`自定义模板` 和`标准模板` 的区别是 `自定义模板` 需要额外提供一个 `index.js` 作为入口文件来自定义渲染模板内容，这在脚手架命令源码中是规定好的。
+
+::: tip
+项目模板提供给脚手架 `init` 命令进行使用，查看 [init命令](./core-command.md#初始化-init命令) 使用。
+:::
 
 ### 创建标准项目模板
 
@@ -345,7 +345,11 @@ npm publish
 页面模板同样分为 `标准模板` 和 `自定义模板` ，在 [概念解释](#概念解释) 中强调了定义，注意，`自定义模板` 和`标准模板` 的区别是 `自定义模板` 需要额外提供一个 `index.js` 作为入口文件来自定义渲染模板内容，这在脚手架命令源码中是规定好的。
 
 ::: tip
-请注意，目前仅支持vue项目。
+页面模板提供给脚手架 `add` 命令进行使用，查看 [add命令](./core-command.md#复用代码-add命令) 使用。
+:::
+
+::: tip
+请注意，`add` 命令目前仅支持vue项目。
 :::
 
 ### 创建标准页面模板
@@ -722,6 +726,10 @@ npm publish
 ## 如何创建代码片段模板
 
 ::: tip
+组件代码片段模板提供给脚手架 `add` 命令进行使用，查看 [add命令](./core-command.md#复用代码-add命令) 使用。
+:::
+
+::: tip
 你可以把代码片段可以理解为组件，目前脚手架 `add` 命令暂支持添加 `vue组件` ，未来会扩展。
 :::
 
@@ -991,6 +999,8 @@ cd cjp-cli-dev-vue3-section-plugin
 npm publish
 ```
 
+你可以点击这里查看壳应用的代码 [壳应用代码](https://gitee.com/Mr_Mikey/cjp-cli-dev-template/tree/master/cjp-cli-dev-vue3-section-plugin) 。
+
 ### **如何使用壳应用**
 
 前面通过vue3来演示创建 `壳应用` ，这里我们也用vue3来演示如何使用 `壳应用` 来创建 `组件代码片段模板` 。
@@ -1085,3 +1095,5 @@ npm run serve
 如果启动成功没有报错，且组件能够正确打开网页预览，则表示壳应用使用成功了。之后你可以通过这种方式来创建调试和发布新的组件代码片段模板，发布完成后请配置 [本地JSON](./configuration.md#代码片段模板配置) 或者 [MongoDB](./configuration.md#mongodb配置模板) 后即可执行 `add` 命令安装使用。
 
 在本例中可以将 `targetPath` 配置为 `src/`，执行 `add` 命令时则会将 `src` 目录下的所有文件都当做一个组件整体进行安装。
+
+你可以点击这里查看如何使用壳应用的演示代码 [演示代码](https://gitee.com/Mr_Mikey/cjp-cli-dev-template/tree/master/cjp-cli-dev-template-vue3-section-template) 。
