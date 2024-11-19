@@ -6,6 +6,10 @@
 演示模板参考代码 [演示模板仓库地址](https://gitee.com/Mr_Mikey/cjp-cli-dev-template)
 :::
 
+::: tip
+推荐你也先创建一个 Git 仓库，然后将模板提交到仓库中统一管理。
+:::
+
 ## 概念解释
 
 - **标准模板**：仅依赖脚手架命令提供的变量参数自动进行 `ejs` 渲染，不额外依赖其它参数和操作。
@@ -339,6 +343,220 @@ npm publish
 ```
 
 ## 如何创建组件库模板
+
+本节演示创建 vue3 组件库模板的过程，仅供参考。
+
+::: tip
+你也可以自己尝试创建一个组件库模板，只需要遵循脚手架约定的目录结构即可，约定为将组件库源码放在 `template` 目录中，并在 `template` 目录下创建 `examples` 目录，将最终的预览 html 页面放在该目录的 `dist` 目录中。
+
+**目前 `publish` 命令的逻辑是在发布组件库时将读取模板 `/examples/dist/` 下的html文件**。
+
+关于如何创建通用组件库模板这里不做赘述。参考以下文章：
+
+- <https://cloud.tencent.com/developer/article/1598054>
+- <https://blog.csdn.net/2401_83384536/article/details/140849379>
+- <https://worktile.com/kb/p/3633101>
+:::
+
+1、创建模板目录如 `cjp-cli-dev-template-vue3-component` ，并执行npm初始化。
+
+::: tip
+文件夹名就是你的npm包名，按你自己喜欢的来命名，写什么都行，只要npm上没这个包就可以，否则发不上去。
+:::
+
+```bash
+cd cjp-cli-dev-template-vue3-component
+npm init -y
+```
+
+2、在 `cjp-cli-dev-template-vue3-component` 目录中创建 `template` 文件夹，找个你认为优秀的项目作为模板，这里我用提前准备好的 [vue3-webpack组件库模板](https://gitee.com/Mr_Mikey/cjp-cli-dev-template/tree/master/cjp-cli-dev-template-vue3-component/template) 作为演示，把模板内的所有文件都复制到 `template` 文件夹中。
+
+此时你的目录结构应该长这样，其中 `template` 文件夹中的文件内容则作为脚手架命令最终下载的项目源文件。
+
+```
+cjp-cli-dev-template-vue3-component     # 模板包名
+├─ template                             # 模板拷贝目录
+│  ├─ src                               # 组件项目源码
+│  ├─ vue.config.js                     # 组件项目配置
+│  ├─ package.json                      # 组件项目package.json
+│  └─ ...                               # 组件项目其他文件
+└─ package.json                         # 模板package.json
+```
+
+3、用过 `vue-cli` 下载模板你应该清楚，你输入的项目名称和版本号最终会写入到下载好的模板 `package.json` 中，它的实现方式就是通过 `ejs` 来解析和渲染最终的模板。
+
+::: tip
+`ejs变量` 的语法为 `<%= 变量名 %>` 。
+
+对 `ejs` 有疑问？查看官方文档 [ejs](https://www.npmjs.com/package/ejs) 。
+:::
+
+这一点脚手架 `init` 命令的实现方式和 `vue-cli` 是一致的，所以我们也需要修改项目 `package.json` ，将对应的位置替换成 `ejs变量` 。
+
+```json
+{
+  "name": "<%= projectName %>",
+  "version": "<%= projectVersion %>",
+  "description": "<%= componentDescription %>",
+  "main": "dist/<%= projectName %>.umd.js",
+  "module": "dist/<%= projectName %>.esm.js",
+
+  // 注意这个files很重要，将你想要发布到npm上的所有文件和路径都填上，否则发布后将会缺失这些文件
+  "files": [
+    "build",
+    "dist",
+    "examples/",
+    "public/",
+    "src",
+    "test",
+    ".browserslistrc",
+    ".eslintrc.js",
+    ".travis.yml",
+    "babel.config.js",
+    "jest.config.js",
+    "jsconfig.json",
+    "README.md",
+    "tsconfig.json",
+    "vue.config.js"
+  ]
+
+  "...省略其他"
+}
+```
+
+当然，你提供的组件模板代码中其它位置如果有需要也可以通过修改为 `ejs变量` 的形式来进行替换，最终 `init` 命令执行时会扫描所有文件，并将用到ejs变量的地方替换成真实内容。
+
+`init` 命令安装 `组件模板` 时传递给 `ejs` 的变量有以下几个，你可以按需使用。
+
+| 参数名               | 参数说明                                                       |
+| -------------------- | -------------------------------------------------------------- |
+| type                 | 安装类型是项目还是组件库，项目返回project，组件库返回component |
+| projectName          | 执行安装命令时你输入的组件项目名称                             |
+| projectVersion       | 执行安装命令时你输入的组件项目版本                             |
+| projectTemplate      | 执行安装命令时你选择安装的组件项目npm包名                      |
+| componentDescription | 执行安装命令时你输入的组件项目描述                             |
+
+4、模板创建好后，你需要将模板发布到npm上，并配置 [本地JSON](./configuration.md#项目-组件库模板配置) 或者 [MongoDB](./configuration.md#mongodb配置模板) 后即可执行 `init` 命令安装使用。
+
+::: tip
+发布npm前，请先访问 [npm官网](https://www.npmjs.com/)，确保网络连接正常，然后执行 `npm login` 进行登录，否则会发布失败。
+
+发布新的版本前，请先提交代码，并更新版本号。
+:::
+
+```bash
+# 进入目录
+cd cjp-cli-dev-template-vue3-component
+# 发布npm包
+npm publish
+```
+
+到这一步我们基本完成了组件库模板创建，接着我们需要在 `template` 目录下创建预览代码目录 `examples` ， `examples/dist` 中的内容就是组件库对外展示的预览界面，有多个预览组件，则生成多个html文件即可。
+
+### 开发组件预览页面功能
+
+前面提供的 [vue3-webpack组件库](https://gitee.com/Mr_Mikey/cjp-cli-dev-template/tree/master/cjp-cli-dev-template-vue3-component/template) 这个演示模板中已经存在 `examples` 和相关代码，你可以打开文件进行对照，大致过程如下。
+
+1、通过 `vue-cli` 安装一个vue3模板作为演示，把下载的所有文件都拷贝到预览代码目录 `examples` 中。
+
+2、在前面 [vue3-webpack组件库](https://gitee.com/Mr_Mikey/cjp-cli-dev-template/tree/master/cjp-cli-dev-template-vue3-component/template) 这个演示模板中，运行构建命令会将结果输出到 `/dist/` 目录中，构建的文件名则是你在执行 `init` 命令时输入的名称，我们需要在预览项目 `examples/src/main.js` 中全局引入演示组件库。
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+// 这里也需要替换成 ejs变量，最终打包文件将会由你输入的项目名称来决定
+import LegoComponents from '../../dist/<%= projectName %>.esm'
+
+const app = createApp(App)
+// 注册全局组件
+app.use(LegoComponents)
+
+app.mount('#app')
+```
+
+3、修改 `App.vue` ，增加测试代码，演示模板中提供了 `l-image` 组件。
+
+```js
+<template>
+  <div id="index">
+    <div>LImage用法演示</div>
+    <!-- 替换成你的图片路径或网络图片 -->
+    <l-image :src="require('./assets/logo.png')" />
+  </div>
+</template>
+```
+
+4、创建 `vue.config.js`，增加多页面打包配置，通过这种方式来实现多个组件预览的功能。
+
+```js
+const { defineConfig } = require('@vue/cli-service')
+
+module.exports = defineConfig({
+  transpileDependencies: true,
+  publicPath: './',
+  // 多页面打包配置
+  pages: {
+    index: {
+      entry: "./src/main.js",
+      template: './public/index.html',
+    },
+    // 你可以在 examples/src/ 目录下创建 main2.js ，并运行npm run build来进行测试
+    // 检查 dist 目录你将看到两个html文件。
+    index2: {
+      entry: "./src/main2.js",
+      template: './public/index.html',
+    }
+  }
+})
+```
+
+完成后升级 `cjp-cli-dev-template-vue3-component` 版本号，然后重新发布。**发布前记得删除 `examples` 目录下的 `node_modules` ，嵌套结构不会被忽略**。
+
+```bash
+# 进入组件库模板目录
+cd cjp-cli-dev-template-vue3-component
+# 更新patch版本（注意需要先提交代码，否则会失败，你也可以手动修改package.json版本号）
+npm version patch
+# 执行发布
+npm publish
+```
+
+### 测试预览页面功能
+
+创建一个文件夹如 `test-component` ，进入该目录，选择安装组件库模板。
+
+```bash
+cd test-component
+cjp-cli-dev init test-component
+```
+
+确保 `test-component` 已经安装依赖，执行构建命令打包组件库代码。
+
+```bash
+npm install
+npm run build
+```
+
+确保 `examples` 中已经安装依赖，前面的步骤都完成后，启动项目你应该能看到以下页面内容。
+
+```bash
+cd examples
+npm install
+npm run serve
+```
+
+![预览界面演示截图](../../docs/.vuepress/public/images/example-page.png)
+
+打包输出最终的预览 html 文件，脚手架 `publish` 命令执行时会读取这些文件。
+
+```bash
+cd examples
+npm run build
+```
+
+这样就完成了组件库模板的创建和预览功能，再次强调你可以自定义组件库模板，遵循脚手架约定的目录结构即可。
+
+> 约定为将组件库源码放在 `template` 目录中，并在 `template` 目录下创建 `examples` 目录，将最终的预览 html 页面放在该目录的 `dist` 目录中。目前脚手架 `publish` 命令会读取这个路径中的 html 文件。
 
 ## 如何创建页面模板
 

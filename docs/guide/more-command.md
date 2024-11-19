@@ -12,7 +12,7 @@
 
 使用前你需要先安装脚手架，如果你还没有安装，请查看 [快速上手](./getting-started.md) 。
 
-## 使用Git Hooks配置工具 - husky命令
+## Git Hooks配置工具 - husky命令
 
 支持快速为项目安装可用的Git Hooks配置工具，兼容稳定版和最新版。
 
@@ -271,7 +271,7 @@ cjp-cli-dev release --major
 6. 修改package.json添加scripts
 7. 安装完成，提示用法和帮助文档
 
-## 初始化Git Flow分支模型 - gitflow命令
+## 创建Git Flow分支模型 - gitflow命令
 
 支持快速为项目创建Git Flow分支模型，自动检查系统是否安装对应工具并返回帮助文档。
 
@@ -319,6 +319,8 @@ cjp-cli-dev gitflow --install --force
 ![gitflow命令演示动画](../../docs/.vuepress/public/images/gitflow-command.gif)
 
 ### 关于
+
+灵感来源于 [git-flow](https://github.com/nvie/gitflow) 。
 
 为什么要做这个命令？
 
@@ -419,7 +421,7 @@ cjp-cli-dev resume --resetChromePath
 4. 读取用户选择导出的md文件，通过marked转为html格式
 5. 驱动chrome浏览器导出html为PDF
 
-## 本地页面预览服务 - server命令
+## 本地页面预览 - server命令
 
 通过express启动本地页面预览服务，支持http请求代理，支持代理多个服务器。
 
@@ -488,7 +490,7 @@ cjp-cli-dev server --port 3001
 7. 生成代理中间件，启动proxy中间件代理
 8. 启动express预览服务
 
-## 删除本地和远程分支 - delete-branch命令
+## 删除分支 - delete-branch命令
 
 支持快速删除本地和远端分支，可多选删除。
 
