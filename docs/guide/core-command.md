@@ -323,9 +323,13 @@ cd src/views/
 cjp-cli-dev add TestComponent
 ```
 
+::: tip
+使用 `add` 命令复用 `页面模板` 和 `组件代码片段` 行为有所区别，复用 `页面模板` 时直接就在命令当前运行目录下创建 `页面模板`，而 `组件代码片段` 则会先在命令当前运行目录下检查 `components` 文件夹，没有则创建该文件夹，并在 `components` 文件夹中创建 `组件代码片段模板` 。
+:::
+
 - 复用页面
 
-你需要先进入对应的页面管理目录中，比如你想把 `test-page` 安装写入到 `src/views` 目录下，执行以下命令，并按照指引进行选择或输入即可。与复用组件不同的是，页面需要你动下手自己配置路由，因为每个项目的路由配置方式可能存在很大差异，想实现通用是非常难以实现的。
+你需要先进入对应的页面管理目录中，比如你想把 `test-page` 安装写入到 `src/views` 目录下，执行以下命令，并按照指引进行选择或输入即可。与复用组件不同的是，页面需要你动下手自己配置路由，因为每个项目的路由配置方式可能存在很大差异，想实现通用是非常难的。
 
 ```bash
 cd src/views/
@@ -335,7 +339,7 @@ cjp-cli-dev add test-page
 你发现安装速度非常慢，一气之下想换个速度快的下载源。
 
 ```bash
-cjp-cli-dev add TestComponent --registry https://registry.npmmirror.com/
+cjp-cli-dev add test-page --registry https://registry.npmmirror.com/
 ```
 
 ### 动画演示

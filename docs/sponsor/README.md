@@ -1,7 +1,9 @@
 # 钞能力
 
 ::: tip
-生活就像一盒巧克力，你永远不知道扫码后你会得到什么。
+生活就像一盒巧克力，你永远不知道你会得到什么。
+
+不如扫个码看看实力？
 :::
 
 <div style="display: flex; justify-content: space-between; margin: 20px 0;">
