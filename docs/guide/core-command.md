@@ -82,6 +82,23 @@ cjp-cli-dev init test-project --force --registry https://registry.npmmirror.com/
 - [如何创建项目模板](./template.md#如何创建项目模板)
 - [如何创建组件库模板](./template.md#如何创建组件库模板)
 
+### 安装组件库说明
+
+`init` 命令安装类型为 `组件` 时，会在源码根目录中额外生成一个 `.componentrc` 文件，该文件中记录了 [组件库模板](./configuration.md#项目-组件库模板字段说明) 来源的相关信息，该文件将作为 `publish` 命令发布 `项目` 还是 `组件` 的判断依据，不同类型会走不同的发布逻辑分支，文件内容示例如下：
+
+```json
+{
+  "type": "component",
+  "projectName": "@cjp-cli-dev/test-components",
+  "projectVersion": "1.0.0",
+  "projectTemplate": "cjp-cli-dev-template-vue3-component",
+  "componentDescription": "组件库通用模板",
+  "buildPath": "dist",
+  "examplePath": "examples",
+  "npmName": "cjp-cli-dev-template-vue3-component"
+}
+```
+
 ## 发布 - publish命令
 
 发布项目或组件库，包括**测试发布和正式发布** 、支持自动在 `github` 、`gitee` 创建远程仓库和提交代码、`Git Flow` 自动化处理。 支持**项目云构建、云发布**，采用 `Redis` 管理云构建任务数据，发布完成自动清除 `Redis` 缓存，静态资源自动上传 `阿里OSS`、自动同步代码和创建版本tag，支持 `MySQL` 管理发布组件信息。
@@ -89,10 +106,11 @@ cjp-cli-dev init test-project --force --registry https://registry.npmmirror.com/
 ::: tip
 为了串联前后端整体学习，我使用了 `Redis`、`MySQL` 以及 `OSS静态资源托管`，这些都需要依赖服务端应用，请查看 [启动服务端](./configuration.md#启动服务端) 说明。
 
-如果你想体验 `云构建`、`云发布` 功能，请先安装并配置好 `Redis`、`MySQL` ，点击以下链接查看详细操作教程。
+如果你想体验 `云构建`、`云发布` 功能，请先安装并配置好 `Redis`、`OSS`、`MySQL` ，点击以下链接查看详细操作教程。
 
 - [如何安装和配置 Redis](./configuration.md#redis配置)
 - [如何安装和配置 MySQL](./configuration.md#mysql配置)
+- [如何配置 OSS](./configuration.md#oss配置)
 :::
 
 ::: tip
@@ -107,6 +125,10 @@ cjp-cli-dev init test-project --force --registry https://registry.npmmirror.com/
 由于目前我没有域名和服务器，`OSS` 上无法配置域名解析直接进行页面访问，你可以按照自己的需求修改服务端代码以适配自己的需求，当然，这需要你对服务端有一定了解。
 
 我也会补充一些相关教程，敬请期待。
+:::
+
+::: tip
+`publish` 命令执行时，将读取源码根目录中的 `.componentrc` 文件，如果存在该文件，则认为这是一个组件库，并执行组件库发布流程，反之则发布项目。查看 [安装组件库说明](#安装组件库说明) 。
 :::
 
 ::: tip
