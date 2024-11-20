@@ -301,9 +301,9 @@ cjp-cli-dev add home
 | examplePath | 组件预览页面路径 | String   | 是       | examples |
 
 ::: tip
-`buildPath` 不需要怎么解释，就是组件库的build输出结果目录 。
+`buildPath` 不需要怎么解释，就是组件库的build命令输出结果路径 。
 
-`examplePath` 表示组件示例页面的路径，例如开发一个element-ui，则每个组件对应有一个预览页面可供查看。
+`examplePath` 表示组件预览示例页面的路径，例如开发一个element-ui，则每个组件对应有一个预览页面可供查看。
 
 请查看 [如何创建组件库模板](./template.md#如何创建组件库模板)
 :::
@@ -321,7 +321,9 @@ cjp-cli-dev add home
 | ignore      | ejs忽略配置（某个目录或者文件不需要ejs渲染）             | Array\<String> | 否       | 无     |
 
 ::: tip
-`targetPath` 的作用是指定要安装哪一个页面模板，比如当前提供的模板库中有n个页面模板，我只需要安装 `src/views/home`，则指定该字段即可。
+`targetPath` 的作用是指定要安装哪一个页面模板，比如当前提供的模板库中有n个页面模板，你只需要安装 `src/views/home` 页面，则指定该字段即可。
+
+请查看 [如何创建页面模板](./template.md#如何创建页面模板)
 :::
 
 ### 代码片段模板字段说明
@@ -334,18 +336,11 @@ cjp-cli-dev add home
 | version     | 要安装的npm包版本（填写版本号或latest） | String   | 是       | 无     |
 | targetPath  | 代码片段模板的路径                      | String   | 是       | 无     |
 
-## 全局环境变量配置
+::: tip
+`targetPath` 的作用是指定要安装的代码片段模板路径，比如当前提供的模板库中有n个代码片段模板，你只需要安装 `src/component/dialog` 组件，则指定该字段即可。
 
-脚手架支持全局环境变量配置，默认情况下你不需要管，如果有需求，你可以在磁盘用户主目录下配置以下属性，后续有新增的配置也是在这里看。
-
-| 名称                             | 说明                                       |
-| -------------------------------- | ------------------------------------------ |
-| process.env.CLI_HOME             | 用户主目录（读取用户主目录下的.env文件）   |
-| process.env.CJP_CLI_DEV_BASE_URL | 接口请求前缀（读取用户主目录下的.env文件） |
-
-Windows系统截图：
-
-![全局环境变量配置截图](../../docs/.vuepress/public/images/global-env.png)
+请查看 [如何创建代码片段模板](./template.md#如何创建代码片段模板)
+:::
 
 ## Redis配置
 
@@ -365,6 +360,50 @@ Windows系统截图：
 脚手架服务端应用已配置好连接本地 `Redis` 的相关代码，安装完成后你只需要 [启动服务端](#启动服务端) 即可连接，本地 `Redis` 默认连接 `127.0.0.1:6379` 。如果你有购买如 `阿里云Redis` 服务，可以修改服务端代码，路径为 `源码目录/config/config.default.js`，参考下图：
 
 ![服务端redis配置参考截图](../../docs/.vuepress/public/images/redis-demo.png)
+
+## OSS配置
+
+`OSS` 在当前脚手架中用于 `publish` 命令上传项目构建结果，后续可通过域名映射来直接访问页面（暂未实现）。
+
+### 前置工作
+
+你需要先创建好相关 `OSS Bucket` 和 `Access Key`。
+
+- [阿里云OSS管理控制台](https://oss.console.aliyun.com/overview)
+- [阿里云AccessKey](https://ram.console.aliyun.com/profile/access-keys)
+
+> AccessKey ID 和 AccessKey Secret 是你访问阿里云 API 的密钥，具有该账户的完全权限，是脚手架 `publish` 命令连接 `OSS Bucket` 创建文件夹并上传文件的关键，请妥善保管。
+
+打开 [阿里云OSS管理控制台](https://oss.console.aliyun.com/overview) ，在左侧选择 `Bucket列表` ，点击 `创建 Bucket` ，输入 `Bucket 名称` ，选择离你最近的 `地域` ，其它选项都默认即可，点击 `完成创建` 。
+
+::: tip
+脚手架服务端代码中演示了 `发布生产` 和 `发布测试` 环节，对应 `cjp-cli` 和 `cjp-cli-dev` 两个 `Bucket` ，你也需要创建两个 `Bucket` 来区分生产和测试。
+:::
+
+![oss创建bucket截图](../../docs/.vuepress/public/images/oss-bucket-create.png)
+
+打开 [阿里云AccessKey](https://ram.console.aliyun.com/profile/access-keys) ，点击创建AccessKey。
+
+![oss-access-key位置截图](../../docs/.vuepress/public/images/oss-access-key1.png)
+
+2023年7月3日起阿里云主账号创建AccessKey之后访问控制不再提供查询Secret的功能，[查看公告](https://www.aliyun.com/notice/detail?spm=5176.29412652.J_dNfRwvqdiCuiLSU0gOuJF.2.740b19d5c3KZm6&notice-id=114599) 。也就是说它只会在你创建的时候显示一次，你需要保管好，之后将不再能查看，忘了只能重新创建。
+
+### 修改OSS服务端配置
+
+你需要将刚才创建的 `AccessKey` 复制下来，并在 `用户主目录/.cjp-cli-dev/` 目录中创建一个 `oss_access_secret_key` 文件，将复制的Key粘贴保存，服务端会读取该文件中的Key。
+
+然后打开服务端代码，找到 `config/db.js` 中的OSS配置信息，修改以下配置，如图所示：
+
+![修改oss配置位置截图](../../docs/.vuepress/public/images/oss-db.png)
+
+- `OSS_ACCESS_KEY_ID` ：也就是你刚才创建 `AccessKey` 的界面显示的 `AccessKey ID`
+- `OSS_PROD_BUCKET` ：修改为你刚才创建的生产 `Bucket` 名称
+- `OSS_DEV_BUCKET` ：修改为你刚才创建的测试 `Bucket` 名称
+- `OSS_REGION` ：你创建 `Bucket` 时选择的地域，一般格式为 `oss-cn-城市完整拼音`
+
+::: tip
+修改配置完成后你可以 [启动服务端](#启动服务端) 来测试 `publish` 命令 `云发布上传OSS` 功能。
+:::
 
 ## MySQL配置
 
@@ -572,46 +611,15 @@ CREATE TABLE version_test (
 ) COMMENT='组件版本信息表' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-## OSS配置
+## 全局环境变量配置
 
-`OSS` 在当前脚手架中用于 `publish` 命令上传项目构建结果，后续可通过域名映射来直接访问页面（暂未实现）。
+脚手架支持全局环境变量配置，默认情况下你不需要管，如果有需求，你可以在磁盘用户主目录下配置以下属性，后续有新增的配置也是在这里看。
 
-### 前置工作
+| 名称                             | 说明                                       |
+| -------------------------------- | ------------------------------------------ |
+| process.env.CLI_HOME             | 用户主目录（读取用户主目录下的.env文件）   |
+| process.env.CJP_CLI_DEV_BASE_URL | 接口请求前缀（读取用户主目录下的.env文件） |
 
-你需要先创建好相关 `OSS Bucket` 和 `Access Key`。
+Windows系统截图：
 
-- [阿里云OSS管理控制台](https://oss.console.aliyun.com/overview)
-- [阿里云AccessKey](https://ram.console.aliyun.com/profile/access-keys)
-
-> AccessKey ID 和 AccessKey Secret 是你访问阿里云 API 的密钥，具有该账户的完全权限，是脚手架 `publish` 命令连接 `OSS Bucket` 创建文件夹并上传文件的关键，请妥善保管。
-
-打开 [阿里云OSS管理控制台](https://oss.console.aliyun.com/overview) ，在左侧选择 `Bucket列表` ，点击 `创建 Bucket` ，输入 `Bucket 名称` ，选择离你最近的 `地域` ，其它选项都默认即可，点击 `完成创建` 。
-
-::: tip
-脚手架服务端代码中演示了 `发布生产` 和 `发布测试` 环节，对应 `cjp-cli` 和 `cjp-cli-dev` 两个 `Bucket` ，你也需要创建两个 `Bucket` 来区分生产和测试。
-:::
-
-![oss创建bucket截图](../../docs/.vuepress/public/images/oss-bucket-create.png)
-
-打开 [阿里云AccessKey](https://ram.console.aliyun.com/profile/access-keys) ，点击创建AccessKey。
-
-![oss-access-key位置截图](../../docs/.vuepress/public/images/oss-access-key1.png)
-
-2023年7月3日起阿里云主账号创建AccessKey之后访问控制不再提供查询Secret的功能，[查看公告](https://www.aliyun.com/notice/detail?spm=5176.29412652.J_dNfRwvqdiCuiLSU0gOuJF.2.740b19d5c3KZm6&notice-id=114599) 。也就是说它只会在你创建的时候显示一次，你需要保管好，之后将不再能查看，忘了只能重新创建。
-
-### 修改OSS服务端配置
-
-你需要将刚才创建的 `AccessKey` 复制下来，并在 `用户主目录/.cjp-cli-dev/` 目录中创建一个 `oss_access_secret_key` 文件，将复制的Key粘贴保存，服务端会读取该文件中的Key。
-
-然后打开服务端代码，找到 `config/db.js` 中的OSS配置信息，修改以下配置，如图所示：
-
-![修改oss配置位置截图](../../docs/.vuepress/public/images/oss-db.png)
-
-- `OSS_ACCESS_KEY_ID` ：也就是你刚才创建 `AccessKey` 的界面显示的 `AccessKey ID`
-- `OSS_PROD_BUCKET` ：修改为你刚才创建的生产 `Bucket` 名称
-- `OSS_DEV_BUCKET` ：修改为你刚才创建的测试 `Bucket` 名称
-- `OSS_REGION` ：你创建 `Bucket` 时选择的地域，一般格式为 `oss-cn-城市完整拼音`
-
-::: tip
-修改配置完成后你可以 [启动服务端](#启动服务端) 来测试 `publish` 命令 `云发布上传OSS` 功能。
-:::
+![全局环境变量配置截图](../../docs/.vuepress/public/images/global-env.png)
