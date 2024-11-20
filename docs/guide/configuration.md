@@ -221,20 +221,31 @@ net start MongoDB
 
 ### 步骤
 
-1. 配置 `host` 域名映射，好处是未来更换任何服务器都可以通过域名映射过去而不用修改源码，推荐安装 [SwitchHost](https://github.com/oldj/SwitchHosts/releases) 管理 `host` 配置：
+1. 配置 `host` 域名映射，好处是未来更换任何服务器都可以通过域名映射过去而不用修改源码，推荐安装 [SwitchHost](https://github.com/oldj/SwitchHosts/releases) 管理 `host` 配置。
 
 ```yaml
 # 本地MongoDB和Redis都支持通过127.0.0.1连接
 127.0.0.1 cjp.clidev.xyz
+# MySQL连接配置，查看本节文章后面的mysql配置说明，ip需替换为你的WSL IPv4地址
+172.21.48.1 cjpclidev.top
 ```
 
-2. 克隆服务端仓库代码
+2. 克隆服务端仓库代码。
 
 ```bash
 # 克隆仓库
 git clone https://gitee.com/Mr_Mikey/cjp-cli-server.git
 # 进入项目目录
 cd cjp-cli-server
+```
+
+1. 修改OSS配置（已配置好可忽略当前步骤），你需要先去阿里云控制台创建 `OSS Bucket` ，并打开服务端代码，修改 `config/db.js` ，替换相关配置，查看 [OSS配置](#oss配置) 说明。
+
+2. 本地安装并配置MySQL（已配置好可忽略当前步骤），你需要先安装它，查看 [MySQL配置](#mysql配置) 说明。
+
+3. 运行服务端应用
+
+```bash
 # 安装依赖
 npm install
 # 启动项目
@@ -560,3 +571,47 @@ CREATE TABLE version_test (
     FOREIGN KEY (component_id) REFERENCES component_test(id) -- 添加外键约束
 ) COMMENT='组件版本信息表' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
+
+## OSS配置
+
+`OSS` 在当前脚手架中用于 `publish` 命令上传项目构建结果，后续可通过域名映射来直接访问页面（暂未实现）。
+
+### 前置工作
+
+你需要先创建好相关 `OSS Bucket` 和 `Access Key`。
+
+- [阿里云OSS管理控制台](https://oss.console.aliyun.com/overview)
+- [阿里云AccessKey](https://ram.console.aliyun.com/profile/access-keys)
+
+> AccessKey ID 和 AccessKey Secret 是你访问阿里云 API 的密钥，具有该账户的完全权限，是脚手架 `publish` 命令连接 `OSS Bucket` 创建文件夹并上传文件的关键，请妥善保管。
+
+打开 [阿里云OSS管理控制台](https://oss.console.aliyun.com/overview) ，在左侧选择 `Bucket列表` ，点击 `创建 Bucket` ，输入 `Bucket 名称` ，选择离你最近的 `地域` ，其它选项都默认即可，点击 `完成创建` 。
+
+::: tip
+脚手架服务端代码中演示了 `发布生产` 和 `发布测试` 环节，对应 `cjp-cli` 和 `cjp-cli-dev` 两个 `Bucket` ，你也需要创建两个 `Bucket` 来区分生产和测试。
+:::
+
+![oss创建bucket截图](../../docs/.vuepress/public/images/oss-bucket-create.png)
+
+打开 [阿里云AccessKey](https://ram.console.aliyun.com/profile/access-keys) ，点击创建AccessKey。
+
+![oss-access-key位置截图](../../docs/.vuepress/public/images/oss-access-key1.png)
+
+2023年7月3日起阿里云主账号创建AccessKey之后访问控制不再提供查询Secret的功能，[查看公告](https://www.aliyun.com/notice/detail?spm=5176.29412652.J_dNfRwvqdiCuiLSU0gOuJF.2.740b19d5c3KZm6&notice-id=114599) 。也就是说它只会在你创建的时候显示一次，你需要保管好，之后将不再能查看，忘了只能重新创建。
+
+### 修改OSS服务端配置
+
+你需要将刚才创建的 `AccessKey` 复制下来，并在 `用户主目录/.cjp-cli-dev/` 目录中创建一个 `oss_access_secret_key` 文件，将复制的Key粘贴保存，服务端会读取该文件中的Key。
+
+然后打开服务端代码，找到 `config/db.js` 中的OSS配置信息，修改以下配置，如图所示：
+
+![修改oss配置位置截图](../../docs/.vuepress/public/images/oss-db.png)
+
+- `OSS_ACCESS_KEY_ID` ：也就是你刚才创建 `AccessKey` 的界面显示的 `AccessKey ID`
+- `OSS_PROD_BUCKET` ：修改为你刚才创建的生产 `Bucket` 名称
+- `OSS_DEV_BUCKET` ：修改为你刚才创建的测试 `Bucket` 名称
+- `OSS_REGION` ：你创建 `Bucket` 时选择的地域，一般格式为 `oss-cn-城市完整拼音`
+
+::: tip
+修改配置完成后你可以 [启动服务端](#启动服务端) 来测试 `publish` 命令 `云发布上传OSS` 功能。
+:::
