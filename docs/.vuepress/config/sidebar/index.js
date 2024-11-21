@@ -22,4 +22,17 @@ export const sidebarConfig = {
       ],
     },
   ],
+  "/framework/": [
+    {
+      text: "架构",
+      collapsible: true, // 是否可折叠
+      children: [
+        "", // 空字符默认会寻找当前目录下的README.md文件
+        "/framework/init.md",
+        "/framework/publish.md",
+        "/framework/rollback.md",
+        "/framework/add.md",
+      ],
+    },
+  ],
 };
