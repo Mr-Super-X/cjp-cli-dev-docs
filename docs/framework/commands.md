@@ -14,4 +14,8 @@
 
 ## rollback流程架构设计图
 
+![rollback架构设计图](../../docs/.vuepress/public/images/rollback-framework.png)
+
+高清源文件预览我放在这里了 [rollback架构设计图](https://www.processon.com/view/link/6744318da1c0ad5bcd7905b8)
+
 ## add流程架构设计图

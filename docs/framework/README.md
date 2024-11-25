@@ -45,8 +45,8 @@ cjp-cli-dev
 
 高清源文件预览我放在这里了 [脚手架Git Flow自动化流程设计图](https://www.processon.com/view/link/6743ecb5eb5248223d593bd9)
 
-## 脚手架自动升级版本&自动提交代码流程设计
+## 脚手架自动升级版本流程设计
 
-![脚手架自动升级版本&自动提交代码流程](../../docs/.vuepress/public/images/update-commit-flow.png)
+![脚手架自动升级版本流程](../../docs/.vuepress/public/images/update-version-flow.png)
 
-高清源文件预览我放在这里了 [脚手架自动升级版本&自动提交代码流程设计图](https://www.processon.com/view/link/67442609a1c0ad5bcd78e21e)
+高清源文件预览我放在这里了 [脚手架自动升级版本流程设计图](https://www.processon.com/view/link/67442609a1c0ad5bcd78e21e)
