@@ -24,3 +24,29 @@ cjp-cli-dev
 ![脚手架模块拆分](../../docs/.vuepress/public/images/cli-module-split.png)
 
 高清源文件预览我放在这里了 [脚手架模块拆分设计图](https://www.processon.com/view/link/673e936833c4f837485ff5da)
+
+## 脚手架执行命令流程设计
+
+以 `init` 命令作为示例，其他命令执行流程一致。
+
+![脚手架执行命令流程优化](../../docs/.vuepress/public/images/cli-flow-perf.png)
+
+高清源文件预览我放在这里了 [脚手架执行命令流程设计图](https://www.processon.com/view/link/674003c694ce030e32bc8b43)
+
+## 脚手架发布流程设计
+
+![脚手架发布流程设计](../../docs/.vuepress/public/images/publish-flow.png)
+
+高清源文件预览我放在这里了 [脚手架发布流程设计图](https://www.processon.com/view/link/6740391e839bfb71123a0ab9)
+
+## 脚手架Git Flow自动化流程设计
+
+![脚手架Git Flow自动化流程](../../docs/.vuepress/public/images/gitflow-framework.png)
+
+高清源文件预览我放在这里了 [脚手架Git Flow自动化流程设计图](https://www.processon.com/view/link/6743ecb5eb5248223d593bd9)
+
+## 脚手架自动升级版本&自动提交代码流程设计
+
+![脚手架自动升级版本&自动提交代码流程](../../docs/.vuepress/public/images/update-commit-flow.png)
+
+高清源文件预览我放在这里了 [脚手架自动升级版本&自动提交代码流程设计图](https://www.processon.com/view/link/67442609a1c0ad5bcd78e21e)

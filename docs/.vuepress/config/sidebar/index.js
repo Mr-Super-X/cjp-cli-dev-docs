@@ -30,7 +30,6 @@ export const sidebarConfig = {
         "", // 空字符默认会寻找当前目录下的README.md文件
         "/framework/core.md",
         "/framework/commands.md",
-        "/framework/models.md",
       ],
     },
   ],
