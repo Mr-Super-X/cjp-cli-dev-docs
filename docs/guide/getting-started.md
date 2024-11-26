@@ -24,7 +24,7 @@ Windows系统推荐使用 [cmder](https://cmder.app/) 来运行脚手架，可�
 
 ### 命令使用范式
 
-所有命令都通过 `脚手架 + 命令 + 参数` 调用，查看 [commander](https://github.com/tj/commander.js/blob/HEAD/Readme_zh-CN.md) 文档。
+所有命令都通过 `脚手架 + 命令 + 可选参数` 调用，查看 [commander](https://github.com/tj/commander.js/blob/HEAD/Readme_zh-CN.md) 文档。
 
 ```bash
 cjp-cli-dev <command> [options]
@@ -71,14 +71,14 @@ cjp-cli-dev clean --all
 脚手架在架构上对命令类型进行了区分，可分为：
 
 - **[核心命令](./core-command.md)**：包含项目初始化、发布、回滚等核心功能。
-- **[其他命令](./more-command.md)**：包含各种锦上添花的前端工程化配置或其他工具。
+- **[其他命令](./more-command.md)**：包含各种锦上添花的前端工程化配置工具或其他好用的工具（我目前想到的）。
 
 核心命令目前需要做一些配置才可以使用，请查阅 [核心命令](./core-command.md) 说明文档，下面仅演示不依赖配置的命令如何使用。
 :::
 
 - **安装统一代码规范：codelint**
 
-假设你当前项目为vue-project
+假设你当前项目为 `vue-project` ，进入项目目录，执行安装命令。
 
 ```bash
 cd vue-project
