@@ -342,6 +342,8 @@ cjp-cli-dev gitflow --install --force
 
 ::: tip
 导出PDF能力依赖chrome浏览器，首次使用该命令的 `--export` 功能时需提供chrome浏览器安装路径，如果chrome安装路径被修改，则需使用 `--resetChromePath` 参数重置安装路径。
+
+注意：由于依赖包 `puppeteer-core` 使用了 `node` 一些新特性，要求 `node >= 18.x` ，否则会报错。
 :::
 
 ::: tip
