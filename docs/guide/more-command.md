@@ -341,9 +341,17 @@ cjp-cli-dev gitflow --install --force
 支持创建markdown简历，提供前端简历模板，支持导出one-light主题样式PDF。
 
 ::: tip
+灵感来源于 `Markdown Preview Enhanced` ，在 `vscode` 中预览 `markdown` 和导出功能非常好用，自己研究了下，也实现了一个。
+:::
+
+::: tip
 导出PDF能力依赖chrome浏览器，首次使用该命令的 `--export` 功能时需提供chrome浏览器安装路径，如果chrome安装路径被修改，则需使用 `--resetChromePath` 参数重置安装路径。
 
 注意：由于依赖包 `puppeteer-core` 使用了 `node` 一些新特性，要求 `node >= 18.x` ，否则会报错。
+:::
+
+::: tip
+目前仅支持一张简历照片正常显示在导出的 `PDf` 文件中，简历中也仅需要一张证件照即可，不需要其它花里胡哨的图片。导出规则为在下载好的 `markdown` 简历模板中提供一个 `img` 标签，`id` 为 `photo` ，并且 `src` 属性能正确引用到图片路径，默认情况下模板中已经提供正确的示例，如果你在下载模板编辑后想更换另一张证件照，你可以直接修改证件照路径，如：`<img id="photo" src="./newPhoto.jpg">` 。
 :::
 
 ::: tip
