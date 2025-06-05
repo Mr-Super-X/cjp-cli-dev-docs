@@ -4,7 +4,7 @@
 ## 依赖环境
 
 - [Node.js v16+](https://nodejs.org/zh-cn)
-- [Node.js 历史版本](https://nodejs.org/dist/)
+- [Node.js 历史版本下载](https://nodejs.org/dist/)
 
 ## 安装
 
